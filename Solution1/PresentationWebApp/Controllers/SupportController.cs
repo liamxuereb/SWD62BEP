@@ -19,7 +19,15 @@ namespace PresentationWebApp.Controllers
         {
             //...inform the responsible staff
 
-            ViewData["feedback"] = "Thank you for getting in touch with us. We will answer back asap";
+            if (string.IsNullOrEmpty(query))
+            {
+                ViewData["warning"] = "Type in some question!";
+            }
+            else
+            {
+                ViewData["feedback"] = "Thank you for getting in touch with us. We will answer back asap";
+            }
+
 
             return View();
         }
