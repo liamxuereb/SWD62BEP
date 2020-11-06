@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ShoppingCart.Data.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialMigrationv2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,7 +24,7 @@ namespace ShoppingCart.Data.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false, defaultValueSql: "NEWID()"),
                     Name = table.Column<string>(nullable: false),
                     Price = table.Column<double>(nullable: false),
                     Description = table.Column<string>(nullable: false),
