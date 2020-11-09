@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\ShoppingCart.Domain\ShoppingCart.Domain.csproj" />
   </ItemGroup>
 
 </Project>
