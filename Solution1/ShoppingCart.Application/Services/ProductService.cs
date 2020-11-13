@@ -30,7 +30,8 @@ namespace ShoppingCart.Application.Services
                            Description = p.Description,
                            Name = p.Name,
                            Price = p.Price,
-                           Category = new CategoryViewModel() { Id = p.Category.Id, Name = p.Category.Name }
+                           Category = new CategoryViewModel() { Id = p.Category.Id, Name = p.Category.Name },
+                           ImageUrl = p.ImageUrl
                        };
             return list;
         }
@@ -45,7 +46,8 @@ namespace ShoppingCart.Application.Services
                            Description = p.Description,
                            Name = p.Name,
                            Price = p.Price,
-                           Category = new CategoryViewModel() { Id = p.Category.Id, Name = p.Category.Name }
+                           Category = new CategoryViewModel() { Id = p.Category.Id, Name = p.Category.Name },
+                           ImageUrl = p.ImageUrl
                        };
             return list;
         }
