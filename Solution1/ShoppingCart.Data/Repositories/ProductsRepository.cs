@@ -31,6 +31,14 @@ namespace ShoppingCart.Data.Repositories
             _context.SaveChanges(); //this will save permanently into the db
         }
 
+
+        public void DisableProduct(Guid id)
+        {
+            var p = GetProduct(id);
+            p.Disable = true;
+            _context.SaveChanges();
+        }
+
         public Product GetProduct(Guid id)
         {
             //single or default will return ONE product! or null
