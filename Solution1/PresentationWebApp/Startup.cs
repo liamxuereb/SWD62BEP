@@ -36,9 +36,26 @@ namespace PresentationWebApp
             
 
 
-
+            /*
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            */
+
+
+            //enable user roles to be used
+            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+
+            /* or this
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
+            */
+
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 

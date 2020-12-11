@@ -98,6 +98,8 @@ namespace PresentationWebApp.Areas.Identity.Pages.Account
                         LastName = Input.LastName
                     });
 
+                    //adding role to every user created to User
+                    await _userManager.AddToRoleAsync(user, "User");
 
 
                     _logger.LogInformation("User created a new account with password.");
