@@ -1,4 +1,5 @@
-﻿using ShoppingCart.Application.Interfaces;
+﻿using AutoMapper;
+using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
 using ShoppingCart.Domain.Interfaces;
 using ShoppingCart.Domain.Models;
@@ -12,7 +13,8 @@ namespace ShoppingCart.Application.Services
     public class ProductService : IProductsService
     {
         private IProductsRepository _productsRepo;
-        public ProductService(IProductsRepository productsRepository)
+        private IMapper _mapper;
+        public ProductService(IProductsRepository productsRepository, IMapper mapper)
         {
             _productsRepo = productsRepository;
         }
@@ -63,9 +65,14 @@ namespace ShoppingCart.Application.Services
         public IQueryable<ProductViewModel> GetProducts()
         {
             //to be implemented using AutoMapper
+            var products = _productsRepo.GetProducts();
+            var result = _mapper.Map<IQueryable<Product>,
+                IQueryable<ProductViewModel>>(products);
+
+            return result;
 
 
-
+            /*
             var list = from p in _productsRepo.GetProducts()
                        select new ProductViewModel()
                        {
@@ -77,6 +84,8 @@ namespace ShoppingCart.Application.Services
                            ImageUrl = p.ImageUrl
                        };
             return list;
+            */
+
         }
 
         public IQueryable<ProductViewModel> GetProducts(int category)
