@@ -42,7 +42,7 @@ namespace PresentationWebApp.Controllers
         public IActionResult Details(Guid id)
         {
             var p = _productsService.GetProduct(id);
-            return View( p);
+            return View(p);
         }
 
         //the engine will load a page with empty fields
