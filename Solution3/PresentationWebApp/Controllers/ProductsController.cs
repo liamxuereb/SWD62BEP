@@ -26,6 +26,9 @@ namespace PresentationWebApp.Controllers
 
         public IActionResult Index()
         {
+            var allCategories = _categoriesService.GetCategories();
+            ViewBag.Categories = allCategories;
+
             var list = _productsService.GetProducts();
             return View(list);
         }
@@ -33,9 +36,31 @@ namespace PresentationWebApp.Controllers
         [HttpPost]
         public IActionResult Search(int category) //using a form, and the select list must have name attribute = category
         {
-            var list = _productsService.GetProducts(category).ToList();
+            //var list = _productsService.GetProducts(category).ToList();
+
+            //return View("Index", list);
+
+            var categories = _categoriesService.GetCategories();
+            ViewBag.Categories = categories;
+
+            var list = _productsService.GetProducts(category).Where(p => p.Disable == false);
 
             return View("Index", list);
+        }
+
+        public IActionResult Hide(Guid id)
+        {
+            try
+            {
+                _productsService.HideProduct(id);
+                TempData["feedback"] = "Hide Button Pressed!";
+            }
+            catch(Exception ex)
+            {
+                TempData["Warning"] = "Hide Action Unsuccessful!";
+            }
+
+            return RedirectToAction("Index");
         }
 
 

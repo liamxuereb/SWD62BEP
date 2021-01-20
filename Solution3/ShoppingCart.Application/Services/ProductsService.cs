@@ -137,6 +137,17 @@ namespace ShoppingCart.Application.Services
             return list;
         }
 
+        public void HideProduct(Guid id)
+        {
+            //get specific product 
+            var product = _productsRepo.GetProduct(id);
+
+            if(product != null)
+            {
+                _productsRepo.HideProduct(product);
+            }
+        }
+
 
 
     }

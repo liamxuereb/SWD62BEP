@@ -16,6 +16,7 @@ namespace ShoppingCart.Domain.Interfaces
 
         Guid AddProduct(Product p);
 
+        void HideProduct(Product p);
 
     }
 }

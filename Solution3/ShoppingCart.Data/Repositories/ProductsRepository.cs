@@ -54,5 +54,13 @@ namespace ShoppingCart.Data.Repositories
             //ShoppingCartDbContext context = new ShoppingCartDbContext();
             return _context.Products;
         }
+
+        public void HideProduct(Product product)
+        {
+            product.Disable = !product.Disable;
+
+            _context.Products.Update(product);
+            _context.SaveChanges();
+        }
     }
 }

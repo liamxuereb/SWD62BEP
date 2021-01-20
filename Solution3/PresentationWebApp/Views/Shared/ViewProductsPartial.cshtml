@@ -3,28 +3,77 @@
 
 @foreach (var p in Model)
 {
-    <div class="col-6">
-        <div class="card" style="width: 18rem;">
-            <img src="@p.ImageUrl" class="card-img-top image" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">@p.Name</h5>
-                <p class="card-text">@p.Price</p>
-                <a href="/Products/Details?id=@p.Id" class="btn btn-primary">View Specification</a>
+    if (p.Disable == false)
+    {
+        <div class="col-6">
+            <div class="card" style="width: 18rem;">
+                <img src="@p.ImageUrl" class="card-img-top image" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@p.Name</h5>
+                    <p class="card-text">@p.Price</p>
+                    <a href="/Products/Details?id=@p.Id" class="btn btn-primary">View Specification</a>
 
-                @if (User.IsInRole("Admin"))
-                {
-                    <a href="/Products/Delete?id=@p.Id" class="btn btn-danger">Delete</a>           
-                }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a href="/Products/Delete?id=@p.Id" class="btn btn-danger">Delete</a>    
 
-                @if (User.IsInRole("User"))
-                {
-                    <div class="row">
-                        <a href="" class="btn btn-primary col-6 m-3">Add To Cart</a>
-                        <input type="number" class="form-control col-3 m-3">
-                    </div>
-                }
+                        if(p.Disable == false)
+                        {
+                            <a href="/Products/Hide?id=@p.Id" class="btn btn-danger">Hide</a>   
+                        }
+                        else
+                        {
+                            <a href="/Products/Hide?id=@p.Id" class="btn btn-danger">Show</a>  
+                        }
+                    }
 
+                    @if (User.IsInRole("User"))
+                    {
+                        <div class="row">
+                            <a href="" class="btn btn-primary col-6 m-3">Add To Cart</a>
+                            <input type="number" class="form-control col-3 m-3">
+                        </div>
+                    }
+
+                </div>
             </div>
         </div>
-    </div>
+    }
+
+    else if (User.IsInRole("Admin"))
+    {
+        <div class="col-6">
+            <div class="card" style="width: 18rem;">
+                <img src="@p.ImageUrl" class="card-img-top image" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@p.Name</h5>
+                    <p class="card-text">@p.Price</p>
+                    <a href="/Products/Details?id=@p.Id" class="btn btn-primary">View Specification</a>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a href="/Products/Delete?id=@p.Id" class="btn btn-danger">Delete</a>    
+
+                        if(p.Disable == false)
+                        {
+                            <a href="/Products/Hide?id=@p.Id" class="btn btn-danger">Hide</a>   
+                        }
+                        else
+                        {
+                            <a href="/Products/Hide?id=@p.Id" class="btn btn-danger">Show</a>  
+                        }
+                    }
+
+                    @if (User.IsInRole("User"))
+                    {
+                        <div class="row">
+                            <a href="" class="btn btn-primary col-6 m-3">Add To Cart</a>
+                            <input type="number" class="form-control col-3 m-3">
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    }
 }
