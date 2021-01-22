@@ -31,31 +31,9 @@ namespace ShoppingCart.Application.Services
             _ordersRepo.AddOrder(myOrder);
 
         }
-        public void DeleteOrder(Guid id)
+        
+        public void Checkout(string email)
         {
-            var oToDelete = _ordersRepo.GetOrder(id);
-
-            if (oToDelete != null)
-            {
-                _ordersRepo.DeleteOrder(oToDelete);
-            }
-        }
-
-        public OrderViewModel GetOrder(Guid id)
-        {
-
-            var myOrder = _ordersRepo.GetOrder(id);
-            var result = _mapper.Map<OrderViewModel>(myOrder);
-            return result;
-
-        }
-
-        public IQueryable<OrderViewModel> GetOrders()
-        {
-
-            var orders = _ordersRepo.GetOrders().ProjectTo<OrderViewModel>(_mapper.ConfigurationProvider);
-
-            return orders;
 
         }
     }

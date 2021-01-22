@@ -6,11 +6,9 @@ using System.Text;
 
 namespace ShoppingCart.Domain.Interfaces
 {
-    public interface IOrdersRepository
+    public interface ICartsRepository
     {
+        IQueryable<Product> GetCart();
 
-        Guid AddOrder(Order o);
-
-        void Checkout();
     }
 }
