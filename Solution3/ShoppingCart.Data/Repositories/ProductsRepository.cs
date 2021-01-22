@@ -57,6 +57,8 @@ namespace ShoppingCart.Data.Repositories
 
         public void HideProduct(Product product)
         {
+            //var p = GetProduct(product.Id);
+            //p.Disable = true;
             product.Disable = !product.Disable;
 
             _context.Products.Update(product);

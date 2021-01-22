@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
+using X.PagedList;
 
 namespace PresentationWebApp.Controllers
 {
@@ -24,29 +25,36 @@ namespace PresentationWebApp.Controllers
             _env = env;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
             var allCategories = _categoriesService.GetCategories();
             ViewBag.Categories = allCategories;
 
             var list = _productsService.GetProducts();
-            return View(list);
+            ViewBag.ListPages = GetPages(page, list);
+            ViewBag.Search = false;
+
+            return View(GetPages(page, list));
         }
 
         [HttpPost]
-        public IActionResult Search(int category) //using a form, and the select list must have name attribute = category
+        public IActionResult Search(int category, int pg=1) //using a form, and the select list must have name attribute = category
         {
             //var list = _productsService.GetProducts(category).ToList();
 
             //return View("Index", list);
 
-            var categories = _categoriesService.GetCategories();
-            ViewBag.Categories = categories;
+            var categeories = _categoriesService.GetCategories();
+            ViewBag.Categories = categeories;
+            var list = _productsService.GetProducts(category, false);
+            ViewBag.ListPages = GetPages(pg, list);
 
-            var list = _productsService.GetProducts(category).Where(p => p.Disable == false);
+            //Pagination handler for active page
+            ViewBag.Search = true;
 
             return View("Index", list);
         }
+
 
         public IActionResult Hide(Guid id)
         {
@@ -142,8 +150,21 @@ namespace PresentationWebApp.Controllers
             return RedirectToAction("Index");
         }
 
+        protected IPagedList<ProductViewModel> GetPages(int? page, IQueryable<ProductViewModel> products)
+        {
+            if (page.HasValue && page < 1)
+                return null;
 
+            var list = products;
 
+            // paginating the list
+            const int size = 10;
+            var pages = list.ToPagedList(page ?? 1, size);
 
+            if (pages.PageNumber != 1 && page.HasValue && page > pages.PageCount)
+                return null;
+
+            return pages;
+        }
     }
 }

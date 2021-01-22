@@ -137,6 +137,22 @@ namespace ShoppingCart.Application.Services
             return list;
         }
 
+        public IQueryable<ProductViewModel> GetProducts(int category, bool disabled)
+        {
+            var list = from p in _productsRepo.GetProducts().Where(x => x.Category.Id == category)
+                       where p.Disable == disabled
+                       select new ProductViewModel()
+                       {
+                           Id = p.Id,
+                           Description = p.Description,
+                           Name = p.Name,
+                           Price = p.Price,
+                           Category = new CategoryViewModel() { Id = p.Category.Id, Name = p.Category.Name },
+                           ImageUrl = p.ImageUrl
+                       };
+            return list;
+        }
+
         public void HideProduct(Guid id)
         {
             //get specific product 
