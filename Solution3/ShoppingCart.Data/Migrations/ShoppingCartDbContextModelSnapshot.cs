@@ -27,9 +27,29 @@ namespace ShoppingCart.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("Product_FK")
+                    b.Property<double>("price")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email");
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("ShoppingCart.Domain.Models.CartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CartID")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ProductID")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Qty")
@@ -37,9 +57,11 @@ namespace ShoppingCart.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Product_FK");
+                    b.HasIndex("CartID");
 
-                    b.ToTable("Carts");
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("ShoppingCart.Domain.Models.Category", b =>
@@ -157,9 +179,22 @@ namespace ShoppingCart.Data.Migrations
 
             modelBuilder.Entity("ShoppingCart.Domain.Models.Cart", b =>
                 {
+                    b.HasOne("ShoppingCart.Domain.Models.Member", "Member")
+                        .WithMany()
+                        .HasForeignKey("Email");
+                });
+
+            modelBuilder.Entity("ShoppingCart.Domain.Models.CartItem", b =>
+                {
+                    b.HasOne("ShoppingCart.Domain.Models.Cart", "Cart")
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ShoppingCart.Domain.Models.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("Product_FK")
+                        .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

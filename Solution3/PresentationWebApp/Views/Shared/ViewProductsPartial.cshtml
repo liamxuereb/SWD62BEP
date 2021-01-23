@@ -41,7 +41,7 @@
                     @if (User.IsInRole("User"))
                     {
                         <div class="row">
-                            <a href="" class="btn btn-primary col-6 m-3">Add To Cart</a>
+                            <a href="/Cart/Add?id=@p.Id" class="btn btn-primary col-6 m-3">Add To Cart</a>
                             <input type="number" class="form-control col-3 m-3">
                         </div>
                     }

@@ -6,20 +6,26 @@ using System.Text;
 
 namespace ShoppingCart.Domain.Models
 {
-    public class Cart
+    public class CartItem
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public virtual List<CartItem> CartItems { get; set; }
+        [Required]
+        public int Qty { get; set; }
 
         [Required]
-        public double price { get; set; }
+        public virtual Cart Cart { get; set; }
 
-        public virtual Member Member { get; set; }
-        [ForeignKey("Member")]
+        [ForeignKey("Cart")]
+        public int CartID { get; set; }
 
-        public string Email { get; set; }
+        [Required]
+        public virtual Product Product { get; set; }
+
+        [ForeignKey("Product")]
+        public Guid ProductID { get; set; }
+
     }
 }

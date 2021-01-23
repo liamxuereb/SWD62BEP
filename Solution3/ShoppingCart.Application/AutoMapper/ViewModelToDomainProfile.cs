@@ -20,6 +20,7 @@ namespace ShoppingCart.Application.AutoMapper
             CreateMap<MemberViewModel, Member>();
             CreateMap<OrderViewModel, Order>();
             CreateMap<CartViewModel, Cart>();
+            CreateMap<CartItemViewModel, CartItem>();
         }
     }
 }

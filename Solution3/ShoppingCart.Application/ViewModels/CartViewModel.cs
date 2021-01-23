@@ -11,10 +11,10 @@ namespace ShoppingCart.Application.ViewModels
     { 
         public int Id { get; set; }
 
-        public ProductViewModel product { get; set; }
+        public IEnumerable<CartItemViewModel> CartItems{ get; set; }
 
-        public string Email { get; set; }
+        public double Price { get; set; }
 
-        public int Qty { get; set; }
+        public string Email{ get; set; }
     }
 }
