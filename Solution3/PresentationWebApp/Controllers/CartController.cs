@@ -73,9 +73,11 @@ namespace PresentationWebApp.Controllers
                         items.Qty = 1;
                         _cartItemsService.AddCartItem(items);
                         _cartsService.UpdateCart(c);
+                        TempData["feedback"] = "Product Added to cart!";
                         return RedirectToAction("Index", "Products");
                     }
                 }
+                
                 return RedirectToAction("Index", "Products");
             }
             catch(Exception ex)

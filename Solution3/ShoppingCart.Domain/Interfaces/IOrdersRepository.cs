@@ -8,7 +8,6 @@ namespace ShoppingCart.Domain.Interfaces
 {
     public interface IOrdersRepository
     {
-
         Guid AddOrder(Order o);
 
         void Checkout();

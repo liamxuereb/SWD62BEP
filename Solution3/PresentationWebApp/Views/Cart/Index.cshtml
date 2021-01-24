@@ -1,21 +1,25 @@
 ﻿
-@model IEnumerable<ShoppingCart.Application.ViewModels.CartViewModel>
+@model ShoppingCart.Application.ViewModels.CartViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-@foreach (var c in Model)
-{
+<h1>Items In Cart</h1>
 
-    <div class="col-6">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">@c.Price.</h5>
-                <p class="card-text">@c.Email </p>
+<div class="row">
+    @foreach (var c in Model.CartItems)
+    {
+
+        <div class="col-4">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">€@c.Product.Price</h5>
+                    <p class="card-text">Number Of Items: @c.Qty </p>
+                </div>
             </div>
         </div>
-    </div>
-}
+    }
+</div>
 
 
